@@ -28,7 +28,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     apiMe()
-      .then((r) => setState({ status: "authed", email: r.email, role: r.role }))
+      .then((r) => {
+        if (!r.ok || !r.email || !r.role) throw new Error("invalid");
+        setState({ status: "authed", email: r.email, role: r.role });
+      })
       .catch(() => setState({ status: "guest" }));
   }, []);
 
