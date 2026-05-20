@@ -1,0 +1,7 @@
+#!/bin/sh
+cat > /usr/share/nginx/html/env.js << ENVEOF
+window.__RUNTIME_CONFIG__ = {
+  VITE_API_BASE_URL: "${VITE_API_BASE_URL}"
+};
+ENVEOF
+exec nginx -g "daemon off;"
